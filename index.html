@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-VQTBKP87MK"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-VQTBKP87MK");
+    </script>
+
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="Self-Guided Action Diffusion"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Self-Guided Action Diffusion
+    </title>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css" />
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css" />
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css" />
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"
+    />
+    <link rel="stylesheet" href="./static/css/index.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+      google.load("jquery", "1.3.2");
+    </script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          inlineMath: [['$', '$']]
+          },
+          "HTML-CSS": {
+          availableFonts: ["TeX", "STIX-Web", "Asana-Math", "Latin-Modern"], // Specify the desired font here
+          preferredFont: "STIX-Web", // Set the preferred font
+          webFont: "STIX-Web" // Set the web font to use
+          },
+      });
+    </script>
+    <script
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      type="text/javascript"
+    ></script>
+  </head>
+  <body>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">
+                Self-Guided Action Diffusion
+              </h1>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                  Rhea Malhotra<sup>1</sup>,
+                </span>
+                <span class="author-block">
+                  Yuejiang Liu<sup>1</sup>,
+                </span>
+                <span class="author-block">
+                  Chelsea Finn<sup>1</sup>
+                </span>
+              </div>
+              
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                  <sup>1</sup>Stanford University
+                </span>
+              </div>
+
+              <br />
+              <img src="./media/figures/stanford.png" width="15%" />
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <!-- PDF Link. -->
+                  <span class="link-block">
+                    <a
+                      href="https://arxiv.org/abs/2501.06994"
+                      class="external-link button is-normal is-rounded is-dark"
+                    >
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Paper</span>
+                    </a>
+                  </span>
+
+                  <!-- Code Link. -->
+                  <span class="link-block">
+                    <a
+                      href=""
+                      class="external-link button is-normal is-rounded is-dark"
+                    >
+                      <span class="icon">
+                        <i class="fa-brands fa-github"></i>
+                      </span>
+                      <span>LeRobot Code</span>
+                    </a>
+                  </span>
+
+                  <span class="link-block">
+                    <a
+                      href=""
+                      class="external-link button is-normal is-rounded is-dark"
+                    >
+                      <span class="icon">
+                        <i class="fa-brands fa-github"></i>
+                      </span>
+                      <span>N1 Code</span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Title Card + Caption -->
+    <section class="hero teaser">
+      <div class="container is-fullhd">
+        <div class="hero-body">
+          <div class="container">
+            <div class="columns is-vcentered  is-centered">
+              <img 
+            src="media/figures/adaptive_new.png" 
+            alt="Self-Guided Action Diffusion Figure"
+            style="max-width: 100%; height: auto; display: block; margin: auto;" />
+
+            </div>
+            <br />
+            <h2 class="subtitle has-text-centered">
+              <span class="dmtpi">Self-Guided Action Diffusion</span>
+              allows for inference-time adaptation to temporally coherence noise in an environment for higher performance in diffusion and flow-matching policies.
+            </h2>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- Abstract. -->
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+              <p>
+                Recent works have shown the promise of inference-time search over action samples for improving generative robot policies. In particular, optimizing cross-chunk
+                coherence via bidirectional decoding has proven effective in boosting the consistency and reactivity of diffusion policies. However, this approach remains computationally expensive as the diversity of sampled actions grows. In this paper, we
+                introduce self-guided action diffusion, a more efficient variant of bidirectional decoding tailored for diffusion-based policies. At the core of our method is to guide
+                the proposal distribution at each diffusion step based on the prior decision. Experiments in simulation tasks show that the proposed self-guidance enables near-
+                optimal performance at negligible inference cost. Notably, under a tight sampling
+                budget, our method achieves up to 70% higher success rates than existing counterparts on challenging dynamic tasks.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--/ Abstract. -->
+      </div>
+
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+      <hr />
+      <figure class="image">
+          <img src="media/figures/final.png" alt="Final Policy Comparison" />
+          <figcaption class="has-text-centered">Final performance comparison of baseline vs. guided policies. Self-GAD consistently outperforms baselines.</figcaption>
+        </figure>
+        <br />
+
+      <figure class="image">
+          <img src="media/figures/N1.png" alt="Final Policy Comparison" />
+          <figcaption class="has-text-centered">Final performance comparison of baseline vs. guided policies. Self-GAD consistently outperforms baselines.</figcaption>
+        </figure>
+        <br />
+       </div>
+    </section>
+
+    <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <h2 class="title is-3 has-text-centered">Key Findings</h2>
+          <ul class="content is-medium">
+            <li><strong>High Task Success:</strong> Self-Guided Action Diffusion improves RoboCasa success rates by <strong>~70%</strong> over GR00T-N1-2B baselines with only 100 demos per task.</li>
+            <li><strong>Generalization:</strong> On the DexMimicGen Cross-Embodiment Suite, our method outperforms traditional sampling by <strong>12%</strong> in single-action horizon settings.</li>
+            <li><strong>Robustness:</strong> Our method maintains high performance even in stochastic environments and across diverse demonstration datasets.</li>
+            <li><strong>Sample Efficiency:</strong> Compared to coherence sampling, Self-GAD achieves higher success with fewer samples by leveraging prior gradients at inference-time.</li>
+            <li><strong>Flow Matching Integration:</strong> We demonstrate strong results using Self-GAD in GR00T-N1-2B, a flow-matching policy, highlighting the flexibility of our approach.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+    <!-- Visual Results -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Visual Results</h2>
+
+      <figure class="image">
+        <img src="media/figures/datasetvariance.png" alt="Dataset Variance" />
+        <figcaption class="has-text-centered">Performance across diverse training datasets. Self-GAD maintains consistency across different dataset sources.</figcaption>
+      </figure>
+      <br />
+
+      <figure class="image">
+        <img src="media/figures/dynamic.png" alt="Dynamic Environment Robustness" />
+        <figcaption class="has-text-centered">Evaluation in dynamic environments shows Self-GAD’s robustness to real-time changes.</figcaption>
+      </figure>
+      <br />
+
+      <figure class="image">
+        <img src="media/figures/sampleefficiency.png" alt="Sample Efficiency" />
+        <figcaption class="has-text-centered">Sample efficiency comparison. Self-GAD reaches high performance with fewer samples.</figcaption>
+      </figure>
+      <br />
+
+      <figure class="image">
+        <img src="media/figures/dynamic_weights.png" alt="Temporal Weighting" />
+        <figcaption class="has-text-centered">Temporal weighting during inference. Earlier steps are emphasized using exponential decay in guidance.</figcaption>
+      </figure>
+    </div>
+  </section>
+      
+
+    <footer class="footer">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content has-text-centered">
+              <p>
+                Website template borrowed from
+                <a href="https://github.com/nerfies/nerfies.github.io"
+                  >NeRFies</a
+                >
+                and <a href="https://peract.github.io/">PerAct</a> and
+                <a href="https://voxposer.github.io/">VoxPoser</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
