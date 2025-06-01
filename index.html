@@ -106,7 +106,7 @@
                   <!-- PDF Link. -->
                   <span class="link-block">
                     <a
-                      href="https://arxiv.org/abs/2501.06994"
+                      href="https://github.com/rhea-mal"
                       class="external-link button is-normal is-rounded is-dark"
                     >
                       <span class="icon">
@@ -119,7 +119,7 @@
                   <!-- Code Link. -->
                   <span class="link-block">
                     <a
-                      href=""
+                      href="https://github.com/rhea-mal"
                       class="external-link button is-normal is-rounded is-dark"
                     >
                       <span class="icon">
@@ -131,7 +131,7 @@
 
                   <span class="link-block">
                     <a
-                      href=""
+                      href="https://github.com/rhea-mal"
                       class="external-link button is-normal is-rounded is-dark"
                     >
                       <span class="icon">
@@ -196,67 +196,146 @@
     </section>
 
     <section class="section">
-      <div class="container is-max-desktop">
-      <hr />
-      <figure class="image">
-          <img src="media/figures/final.png" alt="Final Policy Comparison" />
-          <figcaption class="has-text-centered">Final performance comparison of baseline vs. guided policies. Self-GAD consistently outperforms baselines.</figcaption>
-        </figure>
-        <br />
-
-      <figure class="image">
-          <img src="media/figures/N1.png" alt="Final Policy Comparison" />
-          <figcaption class="has-text-centered">Final performance comparison of baseline vs. guided policies. Self-GAD consistently outperforms baselines.</figcaption>
-        </figure>
-        <br />
-       </div>
-    </section>
-
-    <section class="section">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column is-full">
           <h2 class="title is-3 has-text-centered">Key Findings</h2>
           <ul class="content is-medium">
-            <li><strong>High Task Success:</strong> Self-Guided Action Diffusion improves RoboCasa success rates by <strong>~70%</strong> over GR00T-N1-2B baselines with only 100 demos per task.</li>
-            <li><strong>Generalization:</strong> On the DexMimicGen Cross-Embodiment Suite, our method outperforms traditional sampling by <strong>12%</strong> in single-action horizon settings.</li>
+            <li><strong>High Task Success:</strong> Self-Guided Action Diffusion improves Robomimic benchmarks success rates by <strong>~70%</strong> over diffusion policy baselines in closed loop settings.</li>
+            <li><strong>Generalization:</strong> On the DexMimicGen Cross-Embodiment Suite and RoboCasa, our method outperforms the GROOT-N1 foundation model by  <strong>28%</strong> and <strong>12%</strong> respectively.</li>
             <li><strong>Robustness:</strong> Our method maintains high performance even in stochastic environments and across diverse demonstration datasets.</li>
             <li><strong>Sample Efficiency:</strong> Compared to coherence sampling, Self-GAD achieves higher success with fewer samples by leveraging prior gradients at inference-time.</li>
-            <li><strong>Flow Matching Integration:</strong> We demonstrate strong results using Self-GAD in GR00T-N1-2B, a flow-matching policy, highlighting the flexibility of our approach.</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
-    <!-- Visual Results -->
+  <!-- APPROACH -->
+
   <section class="section">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Visual Results</h2>
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Approach</h2>
+        <div class="content has-text-justified">
+          <p>
+            Self-Guided Action Diffusion (Self-GAD) enhances diffusion-based robot policies by injecting a 
+            guidance signal during inference. At each denoising step, we apply a lightweight update that encourages 
+            actions to stay close to prior predictions while allowing adaptation:
+          </p>
+          <div style="text-align: center;">
+            <script type="math/tex">
+              (\hat{s}_t, \hat{a}_t) \leftarrow (\hat{s}_t, \hat{a}_t) + \beta \nabla_{(\hat{s}_t, \hat{a}_t)} \mathcal{L}
+            </script>
+          </div>
+          <p>
+            The loss penalizes deviations from the prior trajectory with an exponentially decaying weight:
+          </p>
+          <div style="text-align: center;">
+            <script type="math/tex">
+              \mathcal{L} = \sum_{i = t + h}^{t + l} 0.5^{i - (t + h)} \cdot \left\| \hat{a}_i - a_i^{\text{prior}} \right\|_2^2
+            </script>
+          </div>
+          <p>
+            Further, we integrate Self-GAD into GR00T-N1, a robotic foundation model rooted in a flow-matching Diffusion Transformer. This plug-in method improves closed-loop performance, 
+            particularly under persistent noise and shifting targets that challenge standard open-loop diffusion policies.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- EXPERIMENTS -->
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Experiments</h2>
+    <div class="content has-text-justified">
+
+      <h3 class="title is-4">How does Self-GAD perform in single-sample closed-loop settings?</h3>
+      <p>
+        We evaluate Self-GAD against baseline diffusion policies using a single-sample closed-loop control strategy. 
+        Self-GAD outperforms Random sampling, achieving an average success rate 71.4% higher across all Robomimic benchmarks.
+      </p>
       <figure class="image">
-        <img src="media/figures/datasetvariance.png" alt="Dataset Variance" />
-        <figcaption class="has-text-centered">Performance across diverse training datasets. Self-GAD maintains consistency across different dataset sources.</figcaption>
+        <img src="media/figures/final.png" alt="Final Policy Comparison" />
+        <figcaption class="has-text-centered">
+          Comparison of Sampling Methods in Single-Sample Settings
+        </figcaption>
       </figure>
       <br />
 
+      <h3 class="title is-4">How does Self-GAD scale to foundation models like GR00T-N1-2B?</h3>
+      <p>
+        We integrate Self-GAD into GR00T-N1-2B, a large-scale robotic foundation model using flow-matching and multimodal embeddings. 
+        We fine-tune GR00T-N1-2B on 100 demonstrations per task in single action horizon settings (PnP Counter to Cab, Turn Stove On, Turn Sink Faucet On, Turn Microwave Off, Coffee, and Transport). \methodacro{} integrated with the robotic foundation models boosts success rates by in both RoboCasa and DexMG, by 28.4% and 12% respectively.
+      </p>
       <figure class="image">
-        <img src="media/figures/dynamic.png" alt="Dynamic Environment Robustness" />
-        <figcaption class="has-text-centered">Evaluation in dynamic environments shows Self-GAD’s robustness to real-time changes.</figcaption>
+        <img src="media/figures/N1.png" alt="GR00T-N1 Results" />
+        <figcaption class="has-text-centered">
+          Self-GAD in a Generalized Robotic Foundation Model
+        </figcaption>
       </figure>
       <br />
 
+      <h3 class="title is-4">How does Self-GAD improve sample efficiency?</h3>
+      <p>
+        Compared to coherence sampling, Self-GAD achieves high performance with fewer samples. Here, Self-GAD achieves near-optimal performance with a single sample, maintained from 16 samples in PushT.
+      </p>
       <figure class="image">
         <img src="media/figures/sampleefficiency.png" alt="Sample Efficiency" />
-        <figcaption class="has-text-centered">Sample efficiency comparison. Self-GAD reaches high performance with fewer samples.</figcaption>
+        <figcaption class="has-text-centered">
+          Sample Efficiency
+        </figcaption>
       </figure>
       <br />
 
+      <h3 class="title is-4">How robust is Self-GAD to stochasticity and diverse demonstrations?</h3>
+      <p>
+        We evaluate Self-GAD in noisy environments and across varied training datasets. The method consistently generalizes under distribution shift and environmental perturbations. On the RoboMimic Square task, guidance improves consistency in single-sample rollouts, with benefits increasing in high-variance settings as action diversity grows. In dynamic PushT environments, Self-GAD significantly boosts closed-loop performance, particularly under high variability.
+      </p>
+
+      <div class="columns is-centered is-vcentered">
+        <div class="column is-half">
+          <figure class="image" style="height: 300px; display: flex; align-items: center; justify-content: center;">
+            <img src="media/figures/datasetvariance.png" alt="Dataset Variance" style="height: 100%; object-fit: contain;" />
+          </figure>
+          <figcaption class="has-text-centered">
+            Guidance Enhances Robustness to Dataset Variance
+          </figcaption>
+        </div>
+
+        <div class="column is-half">
+          <figure class="image" style="height: 300px; display: flex; align-items: center; justify-content: center;">
+            <img src="media/figures/dynamic.png" alt="Dynamic Environment Robustness" style="height: 100%; object-fit: contain;" />
+          </figure>
+          <figcaption class="has-text-centered">
+            Self-GAD in Dynamic Settings Across Action Horizons
+          </figcaption>
+        </div>
+      </div>
+
+
+
+      <h3 class="title is-4">How does Self-GAD weight past predictions during inference?</h3>
+      <p>
+        Self-GAD reduces the performance gap between static and dynamic environments. Here, we confirm the reusability of a finetuned beta weight for prior relevance across dynamic settings.
+      </p>
       <figure class="image">
         <img src="media/figures/dynamic_weights.png" alt="Temporal Weighting" />
-        <figcaption class="has-text-centered">Temporal weighting during inference. Earlier steps are emphasized using exponential decay in guidance.</figcaption>
+        <figcaption class="has-text-centered">
+          Temporal weighting under Dynamic Conditions
+        </figcaption>
       </figure>
+
     </div>
-  </section>
+  </div>
+</section>
+
+
+
+
       
 
     <footer class="footer">
